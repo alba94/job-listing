@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <form [formGroup]="loginForm" (ngSubmit)="login()">
+                <div class="p-inputgroup">
+                    <span class="p-inputgroup-addon"><i class="pi pi-envelope"></i></span>
+                    <input type="text" pInputText placeholder="Email" formControlName="email">
+                </div>
+                <br>
+                <div class="p-inputgroup">
+                    <span class="p-inputgroup-addon"><i class="pi pi-unlock"></i></span>
+                    <input type="password" pInputText placeholder="Password" formControlName="password">
+                </div>
+                <br>
+                <button pButton type="submit" label="Log In"></button>
+            </form>
+        </div>
+        <p>Don't have an account? Sign up <a routerLink="/signup"> here</a></p>
+    </div>
+</div>
