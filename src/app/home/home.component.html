@@ -1,1 +1,12 @@
-<p>home works!</p>
+<ng-container *ngFor="let job of jobs">
+    <p-card>
+        <p-accordion>
+            <div class="d-flex justify-content-between">
+                <p-accordionTab header={{job.title}}>
+                    {{job.description}}
+                </p-accordionTab>
+                <app-favorite-job></app-favorite-job>
+            </div>
+        </p-accordion>
+    </p-card>
+</ng-container>

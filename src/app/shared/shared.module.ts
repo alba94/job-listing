@@ -13,6 +13,27 @@ import { ToastModule } from 'primeng/toast';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import {RadioButtonModule} from 'primeng/radiobutton';
+// Firebase services + environment module
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { environment } from 'src/environments/environment';
+import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
+import { TableModule } from 'primeng/table';
+import {AccordionModule} from 'primeng/accordion';
+
+
+const firebase = [
+  AngularFireModule.initializeApp(environment.firebase),
+  AngularFireAuthModule,
+  AngularFireDatabaseModule,
+  AngularFireModule,
+  AngularFireStorageModule,
+  AngularFirestoreModule
+]
 
 const primeng = [
     CardModule,
@@ -23,6 +44,8 @@ const primeng = [
     SplitButtonModule,
     InputSwitchModule,
     ConfirmDialogModule,
+    RadioButtonModule,
+    AccordionModule
 ]
 
 const comp = [
@@ -37,13 +60,14 @@ const comp = [
   BrowserAnimationsModule,
   FormsModule,
   HttpClientModule,
-  ReactiveFormsModule
+  ReactiveFormsModule,
+  TableModule,
 ];
 
 @NgModule({
-  declarations: [],
-  imports: [CommonModule, comp, primeng],
-  exports: [CommonModule, comp, primeng],
+  declarations: [LoadingSpinnerComponent],
+  imports: [CommonModule, comp, primeng, firebase],
+  exports: [CommonModule, LoadingSpinnerComponent, comp, primeng, firebase],
   providers: [],
 })
 export class SharedModule {}

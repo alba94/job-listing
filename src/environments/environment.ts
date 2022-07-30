@@ -4,7 +4,18 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'https://my-task-manager-8a589-default-rtdb.europe-west1.firebasedatabase.app'
+  baseUrl:
+    'https://job-listing-e7822-default-rtdb.europe-west1.firebasedatabase.app/',
+  firebase: {
+    apiKey: 'AIzaSyBQGjDMPhDaIsqrEV9TPoguUXisgfw5nCU',
+    authDomain: 'job-listing-e7822.firebaseapp.com',
+    databaseURL:
+      'https://job-listing-e7822-default-rtdb.europe-west1.firebasedatabase.app',
+    projectId: 'job-listing-e7822',
+    storageBucket: 'job-listing-e7822.appspot.com',
+    messagingSenderId: '997504437240',
+    appId: '1:997504437240:web:e2f6325f6bb30b1e8ea40d',
+  },
 };
 
 /*

@@ -1,9 +1,16 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { map, tap } from 'rxjs/operators';
-import { JobPostingEntity } from '../core/models/task.model';
-import { TaskService } from '../core/services/task.service';
+import { Table } from 'primeng/table';
+import { JobPostingEntity } from '../core/models/job.model';
+import { JobService } from '../core/services/job.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,37 +18,67 @@ import { TaskService } from '../core/services/task.service';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-  newTask: FormGroup;
-  tasks: JobPostingEntity[] = [];
+  newJob: FormGroup;
+  jobs: JobPostingEntity[] = [];
   isFetching: boolean = false;
+  user = JSON.parse(localStorage.getItem('user')!);
 
-  constructor(private http: HttpClient, private taskService: TaskService) {
-    this.newTask = new FormGroup({
+  enteredSearchValue: string = '';
+  @Output() searchTextChanged: EventEmitter<string> =
+    new EventEmitter<string>();
+
+  @ViewChild('dt') dt: Table | undefined;
+
+  constructor(
+    private http: HttpClient,
+    private jobService: JobService,
+    private afAuth: AngularFireAuth
+  ) {
+    this.newJob = new FormGroup({
       title: new FormControl(null, [Validators.required]),
       description: new FormControl(null, [Validators.required]),
     });
   }
 
   ngOnInit(): void {
-    this.fetchTasks();
+    this.fetchJobs();
   }
 
-  createTask() {
-    console.log(this.newTask.value);
-    this.taskService.addTask(this.newTask.value);
+  onSearchTextChanged() {
+    this.searchTextChanged.emit(this.enteredSearchValue);
   }
 
-  fetchTasks() {
+  createJob(job: JobPostingEntity) {
+    console.log(this.newJob.value);
+    this.jobs.push(job);
+  }
+
+  fetchJobs() {
     this.isFetching = true;
-    this.taskService.getTasks().subscribe((tasks) => {
+    this.jobService.getJobs().subscribe((jobs) => {
       this.isFetching = false;
-      this.tasks = tasks;
+      this.jobs = jobs;
     });
   }
 
-  deleteTask(task: JobPostingEntity) {
-    this.taskService.deleteTask(task.id).subscribe(()=>{
+  deleteJob(job: JobPostingEntity) {
+    this.jobService.deleteJob(job.id).subscribe(() => {
       // this.tasks = [];
     });
+  }
+
+  editJob(job: JobPostingEntity) {}
+
+  applyFilterGlobal($event: any, stringVal: any) {
+    console.log('event', $event.target.value);
+    
+    this.dt!.filterGlobal(
+      ($event.target as HTMLInputElement).value,
+      'contains'
+    );
+  }
+
+  logout() {
+    this.afAuth.signOut();
   }
 }

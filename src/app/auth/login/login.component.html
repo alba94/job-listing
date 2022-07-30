@@ -1,19 +1,23 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <form [formGroup]="loginForm" (ngSubmit)="login()">
-                <div class="p-inputgroup">
-                    <span class="p-inputgroup-addon"><i class="pi pi-envelope"></i></span>
-                    <input type="text" pInputText placeholder="Email" formControlName="email">
-                </div>
-                <br>
-                <div class="p-inputgroup">
-                    <span class="p-inputgroup-addon"><i class="pi pi-unlock"></i></span>
-                    <input type="password" pInputText placeholder="Password" formControlName="password">
-                </div>
-                <br>
-                <button pButton type="submit" label="Log In"></button>
-            </form>
+            <p-card>
+                <h3><b>Log In</b></h3>
+                <p>Welcome back! </p>
+                <form [formGroup]="loginForm" (ngSubmit)="login()">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon"><i class="pi pi-envelope"></i></span>
+                        <input type="text" pInputText placeholder="Email" formControlName="email">
+                    </div>
+                    <br>
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon"><i class="pi pi-unlock"></i></span>
+                        <input type="password" pInputText placeholder="Password" formControlName="password">
+                    </div>
+                    <br>
+                    <button style="width: 100%;" pButton type="submit" label="Log In"></button>
+                </form>
+            </p-card>
         </div>
         <p>Don't have an account? Sign up <a routerLink="/signup"> here</a></p>
     </div>
