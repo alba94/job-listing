@@ -11,9 +11,12 @@ import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
-import { CreateJobPostingComponent } from './dashboard/create-job-posting/create-job-posting.component';
+import { CreateJobPostingComponent } from './dashboard/create-edit-job-posting/create-edit-job-posting.component';
 import { FavoriteJobComponent } from './home/favorite-job/favorite-job.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ConfirmationService, MessageService } from 'primeng/api';
+
+
 // import {TableModule} from 'primeng/table';
 
 @NgModule({
@@ -25,8 +28,7 @@ import { ProfileComponent } from './profile/profile.component';
     SignupComponent,
     CreateJobPostingComponent,
     FavoriteJobComponent,
-    ProfileComponent,
-    // TableModule
+    ProfileComponent
   ],
   imports: [SharedModule, BrowserModule, AppRoutingModule],
   providers: [
@@ -35,6 +37,8 @@ import { ProfileComponent } from './profile/profile.component';
       useClass: AuthInterceptorService,
       multi: true
     },
+    MessageService,
+    ConfirmationService,
   ],
   bootstrap: [AppComponent],
 })

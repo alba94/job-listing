@@ -3,3 +3,5 @@ export const loginUrl: string =
 export const signupUrl: string =
   'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBQGjDMPhDaIsqrEV9TPoguUXisgfw5nCU';
 export const API: string = 'AIzaSyBQGjDMPhDaIsqrEV9TPoguUXisgfw5nCU';
+
+export const passwordRegex = '^(?=.*d)(?=.*[a-zA-Z]).{8,16}$';

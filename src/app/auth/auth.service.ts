@@ -1,36 +1,30 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { AuthResponseData, User, UserEntity } from '../core/models/user.model';
-import { tap, switchMap  } from 'rxjs/operators';
-import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
+import { AuthResponseData, SignUpModel } from '../core/models/user.model';
+import { tap} from 'rxjs/operators';
 import { loginUrl, signupUrl } from '../core/common/constants';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import * as firebase from 'firebase/app'
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
-import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
- 
-
   private url: string;
   constructor(private http: HttpClient,) {
     this.url = environment.baseUrl + '/auth';
   }
 
-  signup(email: string, password: string) {
+  signUp(signUpModel: SignUpModel) {
     return this.http
       .post<AuthResponseData>(signupUrl, {
-        email: email,
-        password: password,
+        displayName: signUpModel.role,
+        email: signUpModel.email,
+        password: signUpModel.password,
         returnSecureToken: true,
       })
       .pipe(
         tap((resData) => {
-          console.log('resData ', resData);
+          console.log('res pasi sign up', resData);
           
           localStorage.setItem('token', resData.idToken);
           this.handleAuth(
@@ -53,7 +47,6 @@ export class AuthService {
       .pipe(
         tap((resData) => {
           localStorage.setItem('token', resData.idToken);
-          // console.log('user email', resData.email);
           this.handleAuth(
             resData.email,
             resData.localId,

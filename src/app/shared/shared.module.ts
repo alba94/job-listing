@@ -13,7 +13,7 @@ import { ToastModule } from 'primeng/toast';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import {RadioButtonModule} from 'primeng/radiobutton';
+import { RadioButtonModule } from 'primeng/radiobutton';
 // Firebase services + environment module
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
@@ -23,8 +23,14 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { environment } from 'src/environments/environment';
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 import { TableModule } from 'primeng/table';
-import {AccordionModule} from 'primeng/accordion';
-
+import { AccordionModule } from 'primeng/accordion';
+import { SearchFilterPipe } from './pipes/search-filter.pipe';
+import { SortPipe } from './pipes/sort.pipe';
+import {InputNumberModule} from 'primeng/inputnumber';
+import {TooltipModule} from 'primeng/tooltip';
+import {EditorModule} from 'primeng/editor';
+import {ConfirmationService, MessageService} from 'primeng/api';
+import {MenubarModule} from 'primeng/menubar';
 
 const firebase = [
   AngularFireModule.initializeApp(environment.firebase),
@@ -32,21 +38,25 @@ const firebase = [
   AngularFireDatabaseModule,
   AngularFireModule,
   AngularFireStorageModule,
-  AngularFirestoreModule
-]
+  AngularFirestoreModule,
+];
 
 const primeng = [
-    CardModule,
-    ButtonModule,
-    InputTextModule,
-    DialogModule,
-    ToastModule,
-    SplitButtonModule,
-    InputSwitchModule,
-    ConfirmDialogModule,
-    RadioButtonModule,
-    AccordionModule
-]
+  CardModule,
+  ButtonModule,
+  InputTextModule,
+  DialogModule,
+  ToastModule,
+  SplitButtonModule,
+  InputSwitchModule,
+  ConfirmDialogModule,
+  RadioButtonModule,
+  AccordionModule,
+  InputNumberModule,
+  TooltipModule,
+  EditorModule,
+  MenubarModule
+];
 
 const comp = [
   BrowserModule,
@@ -64,10 +74,19 @@ const comp = [
   TableModule,
 ];
 
+const pipes = [SortPipe, SearchFilterPipe];
+
 @NgModule({
-  declarations: [LoadingSpinnerComponent],
+  declarations: [LoadingSpinnerComponent, pipes],
   imports: [CommonModule, comp, primeng, firebase],
-  exports: [CommonModule, LoadingSpinnerComponent, comp, primeng, firebase],
-  providers: [],
+  exports: [
+    CommonModule,
+    LoadingSpinnerComponent,
+    comp,
+    primeng,
+    firebase,
+    pipes,
+  ],
+  providers: [ SortPipe, ConfirmationService, MessageService],
 })
 export class SharedModule {}

@@ -1,12 +1,36 @@
-<ng-container *ngFor="let job of jobs">
-    <p-card>
-        <p-accordion>
-            <div class="d-flex justify-content-between">
-                <p-accordionTab header={{job.title}}>
-                    {{job.description}}
-                </p-accordionTab>
-                <app-favorite-job></app-favorite-job>
-            </div>
-        </p-accordion>
-    </p-card>
-</ng-container>
+<div class="nav">
+    <div class="d-flex justify-content-between container" style="width: 100%;">
+        <img src="assets/images/logo.png" width="300px" alt="">
+        <p-menubar [model]="items"></p-menubar>
+    </div>
+</div>
+<div class="container wrapper">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h2>Job Offers</h2>
+            <p style="width: 90%;">Hello Job Seeker! This app will help you get a job faster. Explore all the opportunities! Apply
+                for jobs now and save your favorite ones.</p>
+        </div>
+        <div>
+            <span class="p-input-icon-left p-ml-auto" style="margin-bottom: 20px;">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" [(ngModel)]="enteredSearchValue" placeholder="Search keyword" />
+            </span>
+        </div>
+    </div>
+    <ng-container *ngFor="let job of jobs | searchFilter:enteredSearchValue">
+        <p-card>
+            <p-accordion>
+                <div class="d-flex justify-content-between align-items-center">
+                    <p-accordionTab header={{job.title}} style="width: 100%; margin-right: 20px;">
+                        <p> {{job.description}}</p>
+                        <br>
+                        <button pButton label="Apply"></button>
+                    </p-accordionTab>
+                    <app-favorite-job [job]="job" ></app-favorite-job>
+                </div>
+            </p-accordion>
+        </p-card>
+        <br>
+    </ng-container>
+</div>

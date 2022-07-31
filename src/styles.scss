@@ -5,6 +5,10 @@
 @import "../node_modules/primeng/resources/themes/lara-light-blue/theme.css";
 
 body {
-  background-color: #d9afd9;
-  background-image: linear-gradient(71deg, #d9afd9 0%, #97d9e1 100%);
+  background-color: #8BC6EC;
+background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
+}
+
+h1, h2, h3, h4, h5{
+  color: var(--text-color);
 }

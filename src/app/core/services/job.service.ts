@@ -1,7 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { exhaustMap, map, take } from 'rxjs';
+import { exhaustMap, map, take, tap } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
+import { SortPipe } from 'src/app/shared/pipes/sort.pipe';
 import { environment } from 'src/environments/environment';
 import { JobPostingEntity } from '../models/job.model';
 
@@ -13,7 +14,8 @@ export class JobService {
 
   constructor(
     private httpClient: HttpClient,
-    private authService: AuthService
+    private authService: AuthService,
+    private sortPipe: SortPipe
   ) {
     this.url = environment.baseUrl + '/jobs';
   }
@@ -26,14 +28,16 @@ export class JobService {
 
   editJob(request: JobPostingEntity) {
     return this.httpClient
-      .put<JobPostingEntity>(this.url + '.json', request)
+      .put<JobPostingEntity>(this.url + `/${request.id}` + '.json', request)
       .subscribe();
   }
 
   updateJob(request: JobPostingEntity) {
     return this.httpClient
-      .patch<JobPostingEntity>(this.url + '.json', request)
-      .subscribe();
+      .patch<JobPostingEntity>(this.url + `/${request.id}` + '.json', request.wage)
+      .subscribe(res => {
+        console.log(res);
+      });
   }
 
   getJobs() {
@@ -43,14 +47,14 @@ export class JobService {
       })
       .pipe(
         map((res) => {
-          console.log(res);
+          console.log('res ne getJobs', res);
           const jobsArray: JobPostingEntity[] = [];
           for (const key in res) {
             if (res.hasOwnProperty(key)) {
               jobsArray.push({ ...res[key as keyof typeof res], id: key });
             }
           }
-          return jobsArray;
+          return this.sortPipe.transform(jobsArray);
         })
       );
   }

@@ -1,0 +1,27 @@
+<form [formGroup]="newJobForm" (ngSubmit)="createJob()">
+    <br>
+    <div class="field col-12 md:col-4">
+        <span class="p-float-label">
+            <input type="text" id="inputtext" name="position" pInputText formControlName="title">
+            <label for="inputtext">Position</label>
+        </span>
+    </div>
+    <br>
+    <div class="field col-12 md:col-4">
+        <textarea id="float-input" rows="5" cols="30" placeholder="Description..." pInputTextarea
+            formControlName="description"></textarea>
+    </div>
+    <br>
+    
+    <div class="field col-12 md:col-3">
+        <span class="p-float-label">
+            <p-inputNumber mode="currency" inputId="currency-germany" currency="EUR" locale="de-DE"
+                formControlName="wage" pTooltip="Optional">
+            </p-inputNumber>
+            <label for="currency-germany">Wage</label>
+        </span>
+    </div>
+
+    <br>
+    <button pButton label="Save" type="submit"></button>
+</form>

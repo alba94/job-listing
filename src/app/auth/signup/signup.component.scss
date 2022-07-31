@@ -1,76 +1,76 @@
-.container {
-    max-width: 600px;
-    max-height: 100vh;
-    margin: auto;
-    margin-top: 50px;
-  }
-
-// .wrapper {
-//   height: 100%;
-//   width: 100%;
-//   margin: auto;
-//   small {
-//     color: #e24c4c;
-//   }
-//   .col {
-//     height: 100vh;
-//   }
-//   div {
-//     height: 100%;
-//   }
-//   .login-card {
-//     margin: 71px 150px;
-//     padding: 0 40px;
-
-//     p {
-//       margin: 20px 0;
-//     }
-//   }
-//   .col-image {
-//     width: 40%;
-
-//     overflow: hidden;
-//     img {
-//       position: fixed;
-//       background-size: contain;
-//       width: 630px;
-//     }
-//   }
-//   button {
-//     width: 100%;
-//   }
-// }
-
-// @media only screen and (max-width: 1300px) {
-//   .wrapper {
-//     height: 100%;
-//     width: 100%;
+// .container {
+//     max-width: 600px;
+//     max-height: 100vh;
 //     margin: auto;
-
-//     div {
-//       height: 100%;
-//     }
-//     .login-card {
-//       margin: 59px 70px;
-//       padding: 0px;
-//       p {
-//         margin: 20px 0;
-//       }
-//     }
-//     .col-image {
-//       width: 40%;
-
-//       overflow: hidden;
-//       img {
-//         position: fixed;
-//         background-size: contain;
-//         width: 630px;
-//       }
-//     }
-//     button {
-//       width: 100%;
-//     }
+//     margin-top: 50px;
 //   }
-// }
+
+.wrapper {
+  height: 100%;
+  width: 100%;
+  margin: auto;
+  small {
+    color: #e24c4c;
+  }
+  .col {
+    height: 100vh;
+  }
+  div {
+    height: 100%;
+  }
+  .login-card {
+    margin: 71px 150px;
+    padding: 0 40px;
+
+    p {
+      margin: 20px 0;
+    }
+  }
+  .col-image {
+    width: 40%;
+
+    overflow: hidden;
+    img {
+      position: fixed;
+      background-size: contain;
+      width: 630px;
+    }
+  }
+  button {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 1300px) {
+  .wrapper {
+    height: 100%;
+    width: 100%;
+    margin: auto;
+
+    div {
+      height: 100%;
+    }
+    .login-card {
+      margin: 59px 70px;
+      padding: 0px;
+      p {
+        margin: 20px 0;
+      }
+    }
+    .col-image {
+      width: 40%;
+
+      overflow: hidden;
+      img {
+        position: fixed;
+        background-size: contain;
+        width: 630px;
+      }
+    }
+    button {
+      width: 100%;
+    }
+  }
+}
 
   

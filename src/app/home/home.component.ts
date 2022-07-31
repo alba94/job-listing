@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { MenuItem } from 'primeng/api';
 import { JobPostingEntity } from '../core/models/job.model';
+import { UserEntity } from '../core/models/user.model';
 import { JobService } from '../core/services/job.service';
 
 @Component({
@@ -9,12 +12,30 @@ import { JobService } from '../core/services/job.service';
 })
 export class HomeComponent implements OnInit {
   isFetching: boolean = false;
-
+  currentUser: UserEntity = JSON.parse(localStorage.getItem('user')!);
   jobs: JobPostingEntity[] = [];
-  constructor(private jobService: JobService) {}
+  enteredSearchValue: string = '';
+  items!: MenuItem[];
+  favoriteJobs: JobPostingEntity[] = [];
+
+  constructor(private jobService: JobService, private router: Router) {}
 
   ngOnInit(): void {
     this.fetchJobs();
+    this.items = [
+      {
+        icon: 'pi pi-user',
+        label: 'Profile',
+        routerLink: ['/profile'],
+      },
+      {
+        icon: 'pi pi-sign-out',
+        label: 'Log Out',
+        command: (e) => {
+          this.logOut();
+        },
+      },
+    ];
   }
 
   fetchJobs() {
@@ -25,5 +46,20 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  
+  saveFavorites(favoriteJob: JobPostingEntity) {
+    // this.favoriteJobs.push(favoriteJob);
+    // console.log(this.favoriteJobs);
+  }
+
+  isFavorite(isFav: boolean) {
+    if (isFav) {
+      // this.saveFavorites()
+    }
+  }
+
+  logOut() {
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
+  }
 }

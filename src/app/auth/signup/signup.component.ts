@@ -6,8 +6,10 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { userInfo } from 'os';
 import { MessageService } from 'primeng/api';
+import { passwordRegex } from 'src/app/core/common/constants';
+import { UserRole } from 'src/app/core/common/enums';
+// import { UserService } from 'src/app/core/services/user.service';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -16,95 +18,62 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./signup.component.scss'],
 })
 export class SignupComponent implements OnInit {
-  // signupForm: FormGroup;
-  // isLoading = false;
-
-  // constructor(
-  //   private authService: AuthService,
-  //   private messageService: MessageService,
-  //   private router: Router,
-  // ) {
-  //   this.signupForm = new FormGroup({
-  //     firstname: new FormControl(null, Validators.required),
-  //     lastname: new FormControl(null, Validators.required),
-  //     email: new FormControl(null, [Validators.required, Validators.email]),
-  //     password: new FormControl(null, [
-  //       Validators.required,
-  //       Validators.pattern('^(?=.*d)(?=.*[a-zA-Z]).{8,16}$'),
-  //     ]),
-  //   });
-  // }
-
-  // ngOnInit(): void {}
-
-  // signUp() {
-  //   console.log(this.signupForm.value);
-  //   this.isLoading = true;
-  //   this.authService
-  //     .signUp({
-  //       firstName: this.signupForm.value.firstname,
-  //       lastName: this.signupForm.value.lastname,
-  //       email: this.signupForm.value.email,
-  //       password: this.signupForm.value.password,
-  //     })
-  //     .subscribe(
-  //       (res) => {
-  //         this.isLoading = false;
-  //         this.router.navigate(['/home']);
-  //         localStorage.setItem('user', JSON.stringify(res.data));
-  //       },
-  //       (error) => {
-  //         this.isLoading = false;
-  //         this.showError('Email has already been taken');
-  //       }
-  //     );
-  //   this.signupForm.reset();
-  // }
-
-  // showError(errorMsg: string) {
-  //   this.messageService.add({
-  //     key: 'signupToast',
-  //     severity: 'error',
-  //     summary: 'Error',
-  //     detail: errorMsg,
-  //   });
-  // }
-
+  isLoading = false;
   signupForm: FormGroup;
   selectedPosition: string = '';
-  constructor(private authService: AuthService) {
+  role!: UserRole;
+
+  constructor(
+    private authService: AuthService,
+    private messageService: MessageService,
+    private router: Router
+  ) {
     this.signupForm = new FormGroup({
-      firstname: new FormControl(null),
-      lastname: new FormControl(null),
+      firstname: new FormControl(null, [Validators.required]),
+      lastname: new FormControl(null, [Validators.required]),
       email: new FormControl(null, [Validators.required, Validators.email]),
       password: new FormControl(null, [
         Validators.required,
-        // Validators.pattern('^(?=.*d)(?=.*[a-zA-Z]).{8,16}$'),
+        Validators.pattern(passwordRegex),
       ]),
-      position: new FormControl(null, [Validators.required]),
+      role: new FormControl([Validators.required]),
     });
   }
 
   ngOnInit(): void {}
 
-  signup() {
-    // this.authService.signup(this.signupForm.value)
+  signUp() {
+    this.isLoading = true;
     this.authService
-      .signup(this.signupForm.value.email, this.signupForm.value.password)
+      .signUp({
+        email: this.signupForm.value.email,
+        password: this.signupForm.value.password,
+        role: this.signupForm.value.role,
+      })
       .subscribe(
         (res) => {
           localStorage.setItem('user', JSON.stringify(res));
-          let user = {
-            id: res.idToken,
-            username: res.email,
-            role: 'seeker',
-          };
-          console.log(res);
+          this.isLoading = false;
+          if (res.displayName == 'offer') {
+            this.router.navigate(['/dashboard']);
+          } else if (res.displayName == 'seeker') {
+            this.router.navigate(['/home']);
+          }
         },
         (error) => {
-          console.log(error);
+          this.isLoading = false;
+          this.showError('Email has already been taken');
         }
       );
     this.signupForm.reset();
+  }
+
+  showError(errorMsg: string) {
+    this.messageService.add({
+      key: 'signupToast',
+      severity: 'error',
+      summary: 'Error',
+      detail: errorMsg,
+    });
   }
 }
