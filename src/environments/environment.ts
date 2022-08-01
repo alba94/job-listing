@@ -5,12 +5,12 @@
 export const environment = {
   production: false,
   baseUrl:
-    'https://job-listing-e7822-default-rtdb.europe-west1.firebasedatabase.app/',
+    'https://job-listing-project-c1999-default-rtdb.europe-west1.firebasedatabase.app/',
   firebase: {
     apiKey: 'AIzaSyBQGjDMPhDaIsqrEV9TPoguUXisgfw5nCU',
     authDomain: 'job-listing-e7822.firebaseapp.com',
     databaseURL:
-      'https://job-listing-e7822-default-rtdb.europe-west1.firebasedatabase.app',
+      'https://job-listing-project-c1999-default-rtdb.europe-west1.firebasedatabase.app',
     projectId: 'job-listing-e7822',
     storageBucket: 'job-listing-e7822.appspot.com',
     messagingSenderId: '997504437240',

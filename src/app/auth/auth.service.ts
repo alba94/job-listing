@@ -27,12 +27,6 @@ export class AuthService {
           console.log('res pasi sign up', resData);
           
           localStorage.setItem('token', resData.idToken);
-          this.handleAuth(
-            resData.email,
-            resData.localId,
-            resData.idToken,
-            +resData.expiresIn
-          );
         })
       );
   }
@@ -46,13 +40,8 @@ export class AuthService {
       })
       .pipe(
         tap((resData) => {
+          console.log('res ne login', resData);
           localStorage.setItem('token', resData.idToken);
-          this.handleAuth(
-            resData.email,
-            resData.localId,
-            resData.idToken,
-            +resData.expiresIn
-          );
         })
       );
   }
@@ -63,16 +52,7 @@ export class AuthService {
 
   isAdmin() {
     console.log('user role', JSON.parse(localStorage.getItem('user')!).displayName);
-    
     return JSON.parse(localStorage.getItem('user')!).displayName == 'offer';
   }
 
-  private handleAuth(
-    email: string,
-    userId: string,
-    token: string,
-    expiresIn: number
-  ) {
-    const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
-  }
 }

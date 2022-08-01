@@ -28,11 +28,17 @@ export class LoginComponent{
       .login(this.loginForm.value.email, this.loginForm.value.password)
       .subscribe((res) => {
         this.isLoading = false;
+        localStorage.setItem('user', JSON.stringify(res));
+
         if (res.displayName == 'offer') {
           this.router.navigate(['/dashboard']);
+          console.log('resiiii', res.displayName);
         } else if (res.displayName == 'seeker') {
           this.router.navigate(['/home']);
         }
+      }, error => {
+        console.log('error', error);
+        
       });
     this.loginForm.reset();
   }

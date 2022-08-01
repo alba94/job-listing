@@ -11,13 +11,13 @@
     button {
       width: 100%;
     }
-    .par {
-      width: 900px;
-      font-size: 20px;
-      letter-spacing: 1px;
-      text-align: center;
-      color: #0d2e59;
-    }
+  }
+  .par {
+    width: 900px;
+    font-size: 20px;
+    letter-spacing: 1px;
+    text-align: center;
+    color: #0d2e59;
   }
 }
 
@@ -29,10 +29,10 @@
 @media only screen and (max-width: 992px) {
   .login-card {
     width: 90%;
-    .par {
+    
+  }.par {
       max-width: 90%;
     }
-  }
 }
 
 @media only screen and (max-width: 768px) {
