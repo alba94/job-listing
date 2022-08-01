@@ -5,7 +5,6 @@ export interface JobPostingEntity {
     title: string;
     description: string;
     offer: UserEntity;
-    wage?: number;
+    wage?: string;
     seekers?: UserEntity[];
-    favoritedBy?: UserEntity[];
   }

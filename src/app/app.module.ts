@@ -28,7 +28,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
     SignupComponent,
     CreateJobPostingComponent,
     FavoriteJobComponent,
-    ProfileComponent
+    ProfileComponent,
   ],
   imports: [SharedModule, BrowserModule, AppRoutingModule],
   providers: [

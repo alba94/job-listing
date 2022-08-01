@@ -56,18 +56,6 @@ export class DashboardComponent implements OnInit {
 
   fetchJobs() {
     this.jobService.getJobs().subscribe((jobs) => {
-      // for (let job in jobs) {
-      //   // console.log('jobs ', jobs[job].offer.email);
-      //   // console.log('current User ', this.currentUser.email);
-      //   // if (jobs[job].offer.email == this.currentUser.email) {
-      //   //   console.log('stacieee', this.currentUser.email);
-      //   //   this.jobs.push(jobs[job]);
-      //   // } else {
-      //   //   this.jobs = [];
-      //   // }
-      // }
-      // let filteredJobs = [];
-
       this.jobs = jobs.filter((job) => {
        return job.offer.email == this.currentUser.email;
       });

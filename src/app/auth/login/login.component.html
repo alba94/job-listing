@@ -1,78 +1,58 @@
-<!-- <div class="container">
-    <div class="row">
-        <div class="col">
-            <p-card>
-                <h3><b>Log In</b></h3>
-                <p>Welcome back! </p>
-                <form [formGroup]="loginForm" (ngSubmit)="login()">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon"><i class="pi pi-envelope"></i></span>
-                        <input type="text" pInputText placeholder="Email" formControlName="email">
-                    </div>
-                    <br>
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon"><i class="pi pi-unlock"></i></span>
-                        <input type="password" pInputText placeholder="Password" formControlName="password">
-                    </div>
-                    <br>
-                    <button style="width: 100%;" pButton type="submit" label="Log In"></button>
-                </form>
-            </p-card>
-        </div>
-        <p>Don't have an account? Sign up <a routerLink="/signup"> here</a></p>
-    </div>
-</div> -->
 <div *ngIf="isLoading" style="text-align: center">
     <app-loading-spinner></app-loading-spinner>
 </div>
-<div class="wrapper" *ngIf="!isLoading">
-    <div class="d-flex justify-content-between">
-        <div class="col-image">
-            <img src="/assets/images/login.jpg" alt="">
+<div  *ngIf="!isLoading">
+    <div class="nav">
+        <div class="d-flex justify-content-between container" style="width: 100%;">
+            <img src="assets/images/logo.png" width="300px" alt="" [routerLink]="['/home']" style="cursor: pointer;">
         </div>
-        <div class="col">
+    </div>
+    <div class="wrapper container" >
+        <div class="col container par">
+            <p> <b> Log in now</b> to discover the latest job postings all over the world. Be part of our community
+                where both job seekers and job offers are able to give each other a chance. Do you also want to be part?
+                Hurry up and log in. </p>
+        </div>
+        <div class="col container login-card">
             <p-card>
-                <div class="login-card">
-                    <h3><b>Log In</b></h3>
-                    <p>Welcome back! Please enter your details.</p>
-                    <form [formGroup]="loginForm" (ngSubmit)="logIn()" *ngIf="!isLoading">
-                        <div class="grid p-fluid">
-                            <div class="col-12 md:col-4">
-                                <div class="p-inputgroup">
-                                    <span class="p-inputgroup-addon"><i class="pi pi-envelope"></i></span>
-                                    <input type="text" pInputText placeholder="Email" formControlName="email">
-                                </div>
-                                <small style="color: red;" *ngIf="loginForm.controls['email'].invalid 
+                <h3><b>Log In</b></h3>
+                <p>Welcome back! Please enter your details.</p>
+                <form [formGroup]="loginForm" (ngSubmit)="logIn()" *ngIf="!isLoading">
+                    <div class="grid p-fluid">
+                        <div class="col-12 md:col-4">
+                            <div class="p-inputgroup">
+                                <span class="p-inputgroup-addon"><i class="pi pi-envelope"></i></span>
+                                <input type="text" pInputText placeholder="Email" formControlName="email">
+                            </div>
+                            <small style="color: red;" *ngIf="loginForm.controls['email'].invalid 
                                 && (loginForm.controls['email'].dirty 
                                 || loginForm.controls['email'].touched)" class="alert">
-                                    Please enter a valid email
-                                </small>
-                            </div>
-                            <br>
-                            <div class="col-12 md:col-4">
-                                <div class="p-inputgroup">
-                                    <span class="p-inputgroup-addon"><i class="pi pi-unlock"></i></span>
-                                    <input type="password" pInputText placeholder="Password" formControlName="password"
-                                        minlength="8">
-                                </div>
-                                <small style="color: red;" *ngIf="loginForm.controls['password'].invalid 
-                                && (loginForm.controls['password'].dirty 
-                                || loginForm.controls['password'].touched)" class="alert">
-                                    Please enter a valid password. Password must have
-                                    only letters and numbers and
-                                    minimum of 8 characters.
-                                </small>
-                            </div>
+                                Please enter a valid email
+                            </small>
                         </div>
                         <br>
-                        <button pButton type="submit" [disabled]="!loginForm.valid" label="Log In" style="float: right;"
-                            class="p-button-info"></button>
-                    </form>
-                    <p>Don't have an account? Sign up <a routerLink="/signup"> here</a></p>
-                </div>
+                        <div class="col-12 md:col-4">
+                            <div class="p-inputgroup">
+                                <span class="p-inputgroup-addon"><i class="pi pi-unlock"></i></span>
+                                <input type="password" pInputText placeholder="Password" formControlName="password"
+                                    minlength="8">
+                            </div>
+                            <small style="color: red;" *ngIf="loginForm.controls['password'].invalid 
+                                && (loginForm.controls['password'].dirty 
+                                || loginForm.controls['password'].touched)" class="alert">
+                                Please enter a valid password. Password must have
+                                only letters and numbers and
+                                minimum of 8 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <br>
+                    <button pButton type="submit" [disabled]="!loginForm.valid" label="Log In" style="float: right;"
+                        class="p-button-info"></button>
+                </form>
+                <p>Don't have an account? Sign up <a routerLink="/signup"> here</a></p>
             </p-card>
         </div>
-
     </div>
 </div>
 <p-toast key="loginToast" position="top-left"></p-toast>

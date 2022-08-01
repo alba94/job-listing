@@ -1,60 +1,47 @@
 .wrapper {
-  height: 100%;
-  width: 100%;
-  margin: auto;
-  div {
-    height: 100%;
-  }
+  overflow: hidden;
+  margin-top: 20px;
+  background-color: var(--surface-ground);
+  padding: 50px;
+  border-radius: 10px;
   .login-card {
-    
-    z-index: 100;
-    margin: 111px 150px;
-    padding: 30px;
-    p {
-      margin: 20px 0;
-    }
-  }
-  .col-image {
-    width: 40%;
-    background-size: cover;
-    img {
-      position: fixed;
-      background-size: contain;
-      width: 630px;
-    }
-  }
-  button {
-    width: 100%;
-  }
-}
-
-@media only screen and (max-width: 1300px) {
-  .wrapper {
-    height: 100%;
-    width: 100%;
     margin: auto;
-    div {
-      height: 100%;
-    }
-    .login-card {
-      margin: 95px 70px;
-      padding: 0px;
-      p {
-        margin: 20px 0;
-      }
-    }
-    .col-image {
-      width: 40%;
-
-      overflow: hidden;
-      img {
-        position: fixed;
-        background-size: contain;
-        width: 630px;
-      }
-    }
+    width: 37.5em;
+    border-radius: 10px;
     button {
       width: 100%;
     }
+    .par {
+      width: 900px;
+      font-size: 20px;
+      letter-spacing: 1px;
+      text-align: center;
+      color: #0d2e59;
+    }
+  }
+}
+
+.nav {
+  background-color: var(--surface-ground);
+  padding: 10px;
+}
+
+@media only screen and (max-width: 992px) {
+  .login-card {
+    width: 90%;
+    .par {
+      max-width: 90%;
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .login-card {
+    max-width: 90%;
+  }
+}
+@media only screen and (max-width: 576px) {
+  .login-card {
+    max-width: 100%;
   }
 }

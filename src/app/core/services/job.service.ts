@@ -47,7 +47,6 @@ export class JobService {
       })
       .pipe(
         map((res) => {
-          console.log('res ne getJobs', res);
           const jobsArray: JobPostingEntity[] = [];
           for (const key in res) {
             if (res.hasOwnProperty(key)) {
@@ -57,6 +56,7 @@ export class JobService {
           return this.sortPipe.transform(jobsArray);
         })
       );
+      
   }
 
   deleteJob(id: string) {

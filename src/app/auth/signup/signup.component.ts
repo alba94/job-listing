@@ -9,7 +9,8 @@ import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { passwordRegex } from 'src/app/core/common/constants';
 import { UserRole } from 'src/app/core/common/enums';
-// import { UserService } from 'src/app/core/services/user.service';
+import { JobService } from 'src/app/core/services/job.service';
+import { UserService } from 'src/app/core/services/user.service';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -26,6 +27,7 @@ export class SignupComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private messageService: MessageService,
+    private userService: UserService,
     private router: Router
   ) {
     this.signupForm = new FormGroup({
@@ -43,6 +45,7 @@ export class SignupComponent implements OnInit {
   ngOnInit(): void {}
 
   signUp() {
+    let userName =this.signupForm.value.firstname + ' ' + this.signupForm.value.lastname;
     this.isLoading = true;
     this.authService
       .signUp({
@@ -52,6 +55,15 @@ export class SignupComponent implements OnInit {
       })
       .subscribe(
         (res) => {
+          console.log('',userName);
+          
+          this.userService.addUser({
+            id: res.idToken,
+            email: res.email,
+            displayName: userName,
+            favoriteJobs: [],
+            appliedJobs: [],
+          });
           localStorage.setItem('user', JSON.stringify(res));
           this.isLoading = false;
           if (res.displayName == 'offer') {

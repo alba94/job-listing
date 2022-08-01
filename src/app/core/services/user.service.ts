@@ -1,70 +1,61 @@
-// import { HttpClient, HttpParams } from '@angular/common/http';
-// import { Injectable } from '@angular/core';
-// import { exhaustMap, map, take, tap } from 'rxjs';
-// import { AuthService } from 'src/app/auth/auth.service';
-// import { SortPipe } from 'src/app/shared/pipes/sort.pipe';
-// import { environment } from 'src/environments/environment';
-// import { JobPostingEntity } from '../models/job.model';
-// import { UserEntity } from '../models/user.model';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { map, tap, pipe } from 'rxjs';
+import { AuthService } from 'src/app/auth/auth.service';
+import { SortPipe } from 'src/app/shared/pipes/sort.pipe';
+import { environment } from 'src/environments/environment';
+import { JobPostingEntity } from '../models/job.model';
+import { UserEntity } from '../models/user.model';
 
-// @Injectable({
-//   providedIn: 'root',
-// })
-// export class UserService {
-//   private url: string;
+@Injectable({
+  providedIn: 'root',
+})
+export class UserService {
+  private url: string;
 
-//   constructor(
-//     private httpClient: HttpClient,
-//     private authService: AuthService,
-//     private sortPipe: SortPipe
-//   ) {
-//     this.url = environment.baseUrl + '/users';
-//   }
+  constructor(private http: HttpClient) {
+    this.url = environment.baseUrl + '/users';
+  }
 
-//   addUser(request: UserEntity) {
-//     return this.httpClient
-//       .post<UserEntity>(this.url + '.json', request)
-//   }
+  addUser(request: UserEntity) {
+    return this.http.post<UserEntity>(this.url + '.json', request).subscribe();
+  }
 
-//   editJob(request: JobPostingEntity) {
-//     return this.httpClient
-//       .put<JobPostingEntity>(this.url + `/${request.id}` + '.json', request)
-//       .subscribe();
-//   }
+  getUser() {
+    // return this.http.get<UserEntity>(this.url + '.json')
+    return this.http
+      .get<{ [key: string]: UserEntity}>(this.url + '.json', {
+        params: new HttpParams().set('auth', localStorage.getItem('token')!),
+      })
+      .pipe(
+        map((res) => {
+          // console.log('res ne getJobs', res);
+          const jobsArray: UserEntity[] = [];
+          for (const key in res) {
+            if (res.hasOwnProperty(key)) {
+              jobsArray.push({ ...res[key as keyof typeof res], id: key });
+            }
+          }
+          return jobsArray;
+          // console.log('user ',jobsArray);
+        })
+      );
+  }
 
-//   updateJob(request: JobPostingEntity) {
-//     return this.httpClient
-//       .patch<JobPostingEntity>(
-//         this.url + `/${request.id}` + '.json',
-//         request.wage
-//       )
-//       .subscribe((res) => {
-//         console.log(res);
-//       });
-//   }
+  updateUser(request: UserEntity) {
+    return this.http
+      .patch<UserEntity>(this.url + `/${request.id}` + '.json', request)
+      .subscribe(res => {
+        // console.log('res i updateUser', res);
+      });
+  }
 
-//   getJobs() {
-//     return this.httpClient
-//       .get<{ [key: string]: JobPostingEntity }>(this.url + '.json', {
-//         params: new HttpParams().set('auth', localStorage.getItem('token')!),
-//       })
-//       .pipe(
-//         map((res) => {
-//           console.log('res ne getJobs', res);
-//           const jobsArray: JobPostingEntity[] = [];
-//           for (const key in res) {
-//             if (res.hasOwnProperty(key)) {
-//               jobsArray.push({ ...res[key as keyof typeof res], id: key });
-//             }
-//           }
-//           return this.sortPipe.transform(jobsArray);
-//         })
-//       );
-//   }
+  editUser(request: UserEntity) {
+    return this.http
+      .put<UserEntity>(this.url + `/${request.id}` + '.json', request)
+      .subscribe(res => {
+        console.log('service edit', res);
+      });
+  }
 
-//   deleteJob(id: string) {
-//     return this.httpClient.delete<JobPostingEntity>(
-//       this.url + '/' + id + '.json'
-//     );
-//   }
-// }
+}

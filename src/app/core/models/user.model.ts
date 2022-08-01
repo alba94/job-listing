@@ -1,5 +1,5 @@
 import { UserRole } from '../common/enums';
-import { JobPostingEntity } from './job.model';
+import {  JobPostingEntity } from './job.model';
 
 export interface SignUpModel {
   email: string;
@@ -25,18 +25,11 @@ export interface UserEntity {
   appliedJobs: JobPostingEntity[];
 }
 
-// export class User {
-//   constructor(
-//     public email: string = '',
-//     public id: string = '',
-//     private _token: string = '',
-//     private _tokenExpirationDate: Date = new Date()
-//   ) {}
+export class UserClass implements UserEntity{
+  id = '';
+  email= '';
+  displayName= '';
+  favoriteJobs= [];
+  appliedJobs= [];
+}
 
-//   get token() {
-//     if (!this._tokenExpirationDate || new Date() > this._tokenExpirationDate) {
-//       return '';
-//     }
-//     return this._token;
-//   }
-// }

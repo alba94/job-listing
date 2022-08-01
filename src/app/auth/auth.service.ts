@@ -57,6 +57,16 @@ export class AuthService {
       );
   }
 
+  loggedIn(): boolean {
+    return !!localStorage.getItem('user');
+  }
+
+  isAdmin() {
+    console.log('user role', JSON.parse(localStorage.getItem('user')!).displayName);
+    
+    return JSON.parse(localStorage.getItem('user')!).displayName == 'offer';
+  }
+
   private handleAuth(
     email: string,
     userId: string,

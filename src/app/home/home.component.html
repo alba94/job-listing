@@ -1,22 +1,22 @@
 <div class="nav">
     <div class="d-flex justify-content-between container" style="width: 100%;">
-        <img src="assets/images/logo.png" width="300px" alt="">
+        <img src="assets/images/logo.png" width="300px" alt="" [routerLink]="['/home']" style="cursor: pointer;">
         <p-menubar [model]="items"></p-menubar>
     </div>
 </div>
 <div class="container wrapper">
-    <div class="d-flex justify-content-between align-items-center">
-        <div>
-            <h2>Job Offers</h2>
-            <p style="width: 90%;">Hello Job Seeker! This app will help you get a job faster. Explore all the opportunities! Apply
-                for jobs now and save your favorite ones.</p>
-        </div>
-        <div>
-            <span class="p-input-icon-left p-ml-auto" style="margin-bottom: 20px;">
-                <i class="pi pi-search"></i>
-                <input pInputText type="text" [(ngModel)]="enteredSearchValue" placeholder="Search keyword" />
-            </span>
-        </div>
+    <div>
+        <h2>Job Offers</h2>
+        <p style="width: 90%;">Hello <b> {{loggedUser.displayName}}</b>! This app will help you get a job faster.
+            Explore all the
+            opportunities! Apply
+            for jobs now and save your favorite ones.</p>
+    </div>
+    <div style="text-align: right;">
+        <span class="p-input-icon-left p-ml-auto" style="margin-bottom: 20px;">
+            <i class="pi pi-search"></i>
+            <input pInputText type="text" [(ngModel)]="enteredSearchValue" placeholder="Search keyword" />
+        </span>
     </div>
     <ng-container *ngFor="let job of jobs | searchFilter:enteredSearchValue">
         <p-card>
@@ -24,10 +24,16 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <p-accordionTab header={{job.title}} style="width: 100%; margin-right: 20px;">
                         <p> {{job.description}}</p>
+                        <p-divider></p-divider>
+                        <p >Wage: {{job.wage}}</p>
                         <br>
-                        <button pButton label="Apply"></button>
+                        <p id="post-by"> <b> Posted by:</b><i> {{job.offer.email}}</i></p>
+                        <div style="text-align: right;">
+                            <p-toggleButton [(ngModel)]="checked" [disabled]="checked==false" onLabel="Apply"
+                                offLabel="Applied"></p-toggleButton>
+                        </div>
                     </p-accordionTab>
-                    <app-favorite-job [job]="job" ></app-favorite-job>
+                    <app-favorite-job [job]="job"></app-favorite-job>
                 </div>
             </p-accordion>
         </p-card>

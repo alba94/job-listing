@@ -31,6 +31,8 @@ import {TooltipModule} from 'primeng/tooltip';
 import {EditorModule} from 'primeng/editor';
 import {ConfirmationService, MessageService} from 'primeng/api';
 import {MenubarModule} from 'primeng/menubar';
+import {ToggleButtonModule} from 'primeng/togglebutton';
+import {DividerModule} from 'primeng/divider';
 
 const firebase = [
   AngularFireModule.initializeApp(environment.firebase),
@@ -55,7 +57,9 @@ const primeng = [
   InputNumberModule,
   TooltipModule,
   EditorModule,
-  MenubarModule
+  MenubarModule,
+  ToggleButtonModule,
+  DividerModule
 ];
 
 const comp = [

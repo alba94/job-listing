@@ -1,11 +1,28 @@
 .nav{
     background-color: var(--surface-ground);
-    padding: 10px;
-    // border-radius: 10px;
+    padding: 10px;   
 }
 .wrapper{
     margin-top: 20px;
     background-color: var(--surface-ground);
     padding: 50px;
     border-radius: 10px;
+    overflow: hidden;
 }
+
+
+
+@media only screen and (max-width: 992px) {
+    p-menubar{
+        width: 105px;
+        // text-align: right;
+    }
+   
+  }
+
+@media only screen and (max-width: 768px) {
+   
+    #post-by{
+        font-size: 12px;
+    }
+  }

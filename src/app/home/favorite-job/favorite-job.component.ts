@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { JobPostingEntity } from 'src/app/core/models/job.model';
-import { JobService } from 'src/app/core/services/job.service';
+import { UserClass, UserEntity } from 'src/app/core/models/user.model';
+import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
   selector: 'app-favorite-job',
@@ -12,34 +13,67 @@ import { JobService } from 'src/app/core/services/job.service';
 })
 export class FavoriteJobComponent implements OnInit {
   isFavorite: boolean = false;
-  // @Output() favoriteJob: EventEmitter<JobPostingEntity> =
-  //   new EventEmitter<JobPostingEntity>();
-  // @Output() isFav: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input() job!: JobPostingEntity;
-
-  favoriteJobs: JobPostingEntity[] = [];
-
+  user!: UserEntity;
   currentUser = JSON.parse(localStorage.getItem('user')!);
 
-  constructor(private jobService: JobService) {}
+  constructor(private userService: UserService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getFavoriteByUser();
+  }
+
+  getFavoriteByUser() {
+    this.userService.getUser().subscribe((users) => {
+      for (let user in users) {
+        if (users[user].email == this.currentUser.email) {
+          this.user = users[user];
+          for (let job in this.user.favoriteJobs) {
+            if (this.user.favoriteJobs[job].id == this.job.id) {
+              this.isFavorite = true; 
+            } else if (this.user.favoriteJobs[job].id == this.job.id){
+              this.isFavorite = false; 
+            }
+          }
+        }
+      }
+    });
+  }
 
   favorite() {
     this.isFavorite = !this.isFavorite;
-    // this.job.favoritedBy = [this.currentUser];
-    // this.jobService.editJob(this.job);
-    // console.log(this.job);
-  
-    // this.favoriteJob.emit(this.job);
     if (this.isFavorite == true) {
-      this.job.favoritedBy?.push(this.currentUser)
-      console.log(this.job.favoritedBy);
-      
-    } else {
-      this.job.favoritedBy?.pop()
-      console.log(this.job.favoritedBy);
+      if (this.user.favoriteJobs && this.user.favoriteJobs.length >0) {
+        this.user.favoriteJobs.push(this.job);
+        console.log('user favorite jobs pas push, ', this.user.favoriteJobs);
+        this.userService.updateUser(this.user);
+      } else if (this.user.favoriteJobs == undefined) {
+        this.user.favoriteJobs = [];
+        this.user.favoriteJobs.push(this.job);
+        this.userService.updateUser(this.user);
+      }
+    } else if(this.isFavorite == false) {
+      if (this.user.favoriteJobs && this.user.favoriteJobs.length > 0) {
+        console.log('Delete ', this.user.favoriteJobs);
+        for (let job in this.user.favoriteJobs) {
+          // if (this.user.favoriteJobs[job].id == this.job.id) {
+            // this.job = this.user.favoriteJobs[job];
+            console.log('jobs 2', this.user.favoriteJobs[job]);
+            
+            this.user.favoriteJobs = this.user.favoriteJobs.filter((jobs)=>{
+              console.log('jobs', jobs);
+              
+            })
+            // const index = this.user.favoriteJobs.indexOf(this.job);
+            // console.log('index', index);
+            
+            //   this.user.favoriteJobs.splice(index, 1);
+            //   console.log('job qe fshihet ', this.job);
+            // this.userService.editUser(this.user);
+          // } 
+        }
+        
+      } else console.log('array eshte bosh ');
     }
   }
- 
 }
