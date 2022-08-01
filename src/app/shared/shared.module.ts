@@ -14,34 +14,19 @@ import { SplitButtonModule } from 'primeng/splitbutton';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { RadioButtonModule } from 'primeng/radiobutton';
-// Firebase services + environment module
-import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-import { AngularFireStorageModule } from '@angular/fire/compat/storage';
-import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
-import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { environment } from 'src/environments/environment';
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 import { TableModule } from 'primeng/table';
 import { AccordionModule } from 'primeng/accordion';
 import { SearchFilterPipe } from './pipes/search-filter.pipe';
 import { SortPipe } from './pipes/sort.pipe';
-import {InputNumberModule} from 'primeng/inputnumber';
-import {TooltipModule} from 'primeng/tooltip';
-import {EditorModule} from 'primeng/editor';
-import {ConfirmationService, MessageService} from 'primeng/api';
-import {MenubarModule} from 'primeng/menubar';
-import {ToggleButtonModule} from 'primeng/togglebutton';
-import {DividerModule} from 'primeng/divider';
-
-const firebase = [
-  AngularFireModule.initializeApp(environment.firebase),
-  AngularFireAuthModule,
-  AngularFireDatabaseModule,
-  AngularFireModule,
-  AngularFireStorageModule,
-  AngularFirestoreModule,
-];
+import { InputNumberModule } from 'primeng/inputnumber';
+import { TooltipModule } from 'primeng/tooltip';
+import { EditorModule } from 'primeng/editor';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { MenubarModule } from 'primeng/menubar';
+import { ToggleButtonModule } from 'primeng/togglebutton';
+import { DividerModule } from 'primeng/divider';
 
 const primeng = [
   CardModule,
@@ -59,7 +44,7 @@ const primeng = [
   EditorModule,
   MenubarModule,
   ToggleButtonModule,
-  DividerModule
+  DividerModule,
 ];
 
 const comp = [
@@ -82,15 +67,8 @@ const pipes = [SortPipe, SearchFilterPipe];
 
 @NgModule({
   declarations: [LoadingSpinnerComponent, pipes],
-  imports: [CommonModule, comp, primeng, firebase],
-  exports: [
-    CommonModule,
-    LoadingSpinnerComponent,
-    comp,
-    primeng,
-    firebase,
-    pipes,
-  ],
-  providers: [ SortPipe, ConfirmationService, MessageService],
+  imports: [CommonModule, comp, primeng],
+  exports: [CommonModule, LoadingSpinnerComponent, comp, primeng, pipes],
+  providers: [SortPipe, ConfirmationService, MessageService],
 })
 export class SharedModule {}

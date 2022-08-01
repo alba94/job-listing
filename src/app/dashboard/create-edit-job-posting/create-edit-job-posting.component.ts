@@ -18,7 +18,7 @@ export class CreateJobPostingComponent implements OnInit {
 
   @Output() addedJob = new EventEmitter<JobPostingEntity>();
   @Output() openModal = new EventEmitter<boolean>();
-  @Input() openEdit: boolean = false;
+  @Input() openEdit: boolean = false;  //TO FIX - reset form after edit
   @Input()
   set object(item: any) {
     if (this.openEdit) {

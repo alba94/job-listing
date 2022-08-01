@@ -1,6 +1,6 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { JobPostingEntity } from 'src/app/core/models/job.model';
-import { UserClass, UserEntity } from 'src/app/core/models/user.model';
+import { UserEntity } from 'src/app/core/models/user.model';
 import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
@@ -30,9 +30,9 @@ export class FavoriteJobComponent implements OnInit {
           this.user = users[user];
           for (let job in this.user.favoriteJobs) {
             if (this.user.favoriteJobs[job].id == this.job.id) {
-              this.isFavorite = true; 
-            } else if (this.user.favoriteJobs[job].id == this.job.id){
-              this.isFavorite = false; 
+              this.isFavorite = true;
+            } else if (this.user.favoriteJobs[job].id == this.job.id) {
+              this.isFavorite = false;
             }
           }
         }
@@ -43,7 +43,7 @@ export class FavoriteJobComponent implements OnInit {
   favorite() {
     this.isFavorite = !this.isFavorite;
     if (this.isFavorite == true) {
-      if (this.user.favoriteJobs && this.user.favoriteJobs.length >0) {
+      if (this.user.favoriteJobs && this.user.favoriteJobs.length > 0) {
         this.user.favoriteJobs.push(this.job);
         console.log('user favorite jobs pas push, ', this.user.favoriteJobs);
         this.userService.updateUser(this.user);
@@ -52,27 +52,25 @@ export class FavoriteJobComponent implements OnInit {
         this.user.favoriteJobs.push(this.job);
         this.userService.updateUser(this.user);
       }
-    } else if(this.isFavorite == false) {
+    } else if (this.isFavorite == false) {
       if (this.user.favoriteJobs && this.user.favoriteJobs.length > 0) {
         console.log('Delete ', this.user.favoriteJobs);
         for (let job in this.user.favoriteJobs) {
           // if (this.user.favoriteJobs[job].id == this.job.id) {
-            // this.job = this.user.favoriteJobs[job];
-            console.log('jobs 2', this.user.favoriteJobs[job]);
-            
-            this.user.favoriteJobs = this.user.favoriteJobs.filter((jobs)=>{
-              console.log('jobs', jobs);
-              
-            })
-            // const index = this.user.favoriteJobs.indexOf(this.job);
-            // console.log('index', index);
-            
-            //   this.user.favoriteJobs.splice(index, 1);
-            //   console.log('job qe fshihet ', this.job);
-            // this.userService.editUser(this.user);
-          // } 
+          // this.job = this.user.favoriteJobs[job];
+          console.log('jobs 2', this.user.favoriteJobs[job]);
+
+          this.user.favoriteJobs = this.user.favoriteJobs.filter((jobs) => {
+            console.log('jobs', jobs);
+          });
+          // const index = this.user.favoriteJobs.indexOf(this.job);
+          // console.log('index', index);
+
+          //   this.user.favoriteJobs.splice(index, 1);
+          //   console.log('job qe fshihet ', this.job);
+          // this.userService.editUser(this.user);
+          // }
         }
-        
       } else console.log('array eshte bosh ');
     }
   }

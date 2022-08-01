@@ -34,8 +34,6 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log('user ', this.currentUser);
-    
     this.fetchJobs();
     this.getUser();
     this.items = [

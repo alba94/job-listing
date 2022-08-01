@@ -5,10 +5,9 @@
     <div class="nav">
         <div class="d-flex justify-content-between container" style="width: 100%;">
             <img src="assets/images/logo.png" width="300px" alt="" [routerLink]="['/home']" style="cursor: pointer;">
-
         </div>
     </div>
-    <div class="wrapper container" >
+    <div class="wrapper container">
         <div class="container par">
             <p> <b> Sign up now</b> to discover the latest job postings all over the world. Be part of our community
                 where
@@ -81,7 +80,7 @@
                         </p-radioButton>
                     </div>
                     <br>
-                    <button pButton type="submit" label="Sign Up" style="float: right;" class="p-button-success"
+                    <button pButton type="submit" label="Sign Up" class="p-button-success"
                         [disabled]="!signupForm.valid"></button>
                     <p>Already have an account? Log in <a routerLink="/login"> here</a></p>
                 </form>

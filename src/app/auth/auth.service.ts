@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { AuthResponseData, SignUpModel } from '../core/models/user.model';
-import { tap} from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { loginUrl, signupUrl } from '../core/common/constants';
 
 @Injectable({
@@ -10,7 +10,7 @@ import { loginUrl, signupUrl } from '../core/common/constants';
 })
 export class AuthService {
   private url: string;
-  constructor(private http: HttpClient,) {
+  constructor(private http: HttpClient) {
     this.url = environment.baseUrl + '/auth';
   }
 
@@ -22,13 +22,7 @@ export class AuthService {
         password: signUpModel.password,
         returnSecureToken: true,
       })
-      .pipe(
-        tap((resData) => {
-          console.log('res pasi sign up', resData);
-          
-          localStorage.setItem('token', resData.idToken);
-        })
-      );
+      .pipe(tap((resData) => localStorage.setItem('token', resData.idToken)));
   }
 
   login(email: string, password: string) {
@@ -38,21 +32,14 @@ export class AuthService {
         password: password,
         returnSecureToken: true,
       })
-      .pipe(
-        tap((resData) => {
-          console.log('res ne login', resData);
-          localStorage.setItem('token', resData.idToken);
-        })
-      );
+      .pipe(tap((resData) => localStorage.setItem('token', resData.idToken)));
   }
 
   loggedIn(): boolean {
     return !!localStorage.getItem('user');
   }
 
-  isAdmin() {
-    console.log('user role', JSON.parse(localStorage.getItem('user')!).displayName);
+  isAdmin(): boolean {
     return JSON.parse(localStorage.getItem('user')!).displayName == 'offer';
   }
-
 }

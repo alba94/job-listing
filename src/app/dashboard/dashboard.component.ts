@@ -1,11 +1,4 @@
-import { HttpClient } from '@angular/common/http';
-import {
-  Component,
-  EventEmitter,
-  OnInit,
-  Output,
-  ViewChild,
-} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
@@ -19,16 +12,13 @@ import { JobService } from '../core/services/job.service';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-  newJob: FormGroup;
+  newJobForm: FormGroup;
   jobs: JobPostingEntity[] = [];
   currentUser = JSON.parse(localStorage.getItem('user')!);
   display: boolean = false;
   openEdit: boolean = false;
   openModal: boolean = false;
   selectedJobPost!: JobPostingEntity;
-
-  @Output() searchTextChanged: EventEmitter<string> =
-    new EventEmitter<string>();
 
   @ViewChild('dt') dt: Table | undefined;
 
@@ -37,7 +27,7 @@ export class DashboardComponent implements OnInit {
     private router: Router,
     private confirmationService: ConfirmationService
   ) {
-    this.newJob = new FormGroup({
+    this.newJobForm = new FormGroup({
       title: new FormControl(null, [Validators.required]),
       description: new FormControl(null, [Validators.required]),
       offer: new FormControl(this.currentUser, [Validators.required]),
@@ -46,18 +36,12 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchJobs();
-    for (let job in this.jobs) {
-      console.log('jobs ', this.jobs[job].offer);
-      if (this.jobs[job].offer == this.currentUser) {
-        console.log('stacieee', this.jobs[job]);
-      }
-    }
   }
 
   fetchJobs() {
     this.jobService.getJobs().subscribe((jobs) => {
       this.jobs = jobs.filter((job) => {
-       return job.offer.email == this.currentUser.email;
+        return job.offer.email == this.currentUser.email;
       });
     });
   }
@@ -65,10 +49,6 @@ export class DashboardComponent implements OnInit {
   createJob(job: JobPostingEntity) {
     this.jobService.addJob(job);
     this.jobs.unshift(job);
-  }
-
-  updateJob(job: JobPostingEntity) {
-    this.jobService.updateJob(job);
   }
 
   deleteJob(job: JobPostingEntity) {
@@ -79,14 +59,14 @@ export class DashboardComponent implements OnInit {
 
   confirm(job: JobPostingEntity) {
     this.confirmationService.confirm({
-      message: 'Are you sure that you want to perform this action?',
+      message: 'Are you sure that you want to delete this job posting?',
       accept: () => {
         this.deleteJob(job);
       },
     });
   }
 
-  editJob(job: JobPostingEntity) {
+  editJob(job: JobPostingEntity) { //TO FIX - change UI of edit
     this.display = true;
     this.openEdit = true;
     this.selectedJobPost = job;
@@ -108,8 +88,6 @@ export class DashboardComponent implements OnInit {
   }
 
   applyFilterGlobal($event: any, stringVal: any) {
-    console.log('event', $event.target.value);
-
     this.dt!.filterGlobal(
       ($event.target as HTMLInputElement).value,
       'contains'

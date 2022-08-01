@@ -1,15 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { passwordRegex } from 'src/app/core/common/constants';
-import { UserRole } from 'src/app/core/common/enums';
-import { JobService } from 'src/app/core/services/job.service';
 import { UserService } from 'src/app/core/services/user.service';
 import { AuthService } from '../auth.service';
 
@@ -22,7 +15,6 @@ export class SignupComponent implements OnInit {
   isLoading = false;
   signupForm: FormGroup;
   selectedPosition: string = '';
-  role!: UserRole;
 
   constructor(
     private authService: AuthService,
@@ -45,7 +37,8 @@ export class SignupComponent implements OnInit {
   ngOnInit(): void {}
 
   signUp() {
-    let userName =this.signupForm.value.firstname + ' ' + this.signupForm.value.lastname;
+    let userName =
+      this.signupForm.value.firstname + ' ' + this.signupForm.value.lastname;
     this.isLoading = true;
     this.authService
       .signUp({
@@ -55,8 +48,6 @@ export class SignupComponent implements OnInit {
       })
       .subscribe(
         (res) => {
-          console.log('',userName);
-          
           this.userService.addUser({
             id: res.idToken,
             email: res.email,

@@ -1,4 +1,4 @@
-import { UserRole } from '../common/enums';
+
 import {  JobPostingEntity } from './job.model';
 
 export interface SignUpModel {

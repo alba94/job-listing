@@ -1,57 +1,54 @@
-.nav{
-    background-color: var(--surface-ground);
-    padding: 10px;
+.nav {
+  background-color: var(--surface-ground);
+  padding: 10px;
 }
-.wrapper{
-    overflow: hidden;
-    margin-top: 20px;
-    background-color: var(--surface-ground);
-    padding: 50px;
-    border-radius: 10px;
-   
-}
-
-.pic {
+.wrapper {
+  overflow: hidden;
+  margin-top: 20px;
+  background-color: var(--surface-ground);
+  padding: 50px;
+  border-radius: 10px;
+  .pic {
     width: 100px;
     height: 100px;
     margin-right: 20px;
     object-fit: cover;
   }
-
-  .info{
+  .info {
     display: flex;
     align-items: center;
   }
+}
 
-  @media only screen and (max-width: 992px) {
-    .info{
-        p{
-            font-size: 10px
-        }
+@media only screen and (max-width: 992px) {
+  .info {
+    p {
+      font-size: 10px;
     }
   }
-  @media only screen and (max-width: 768px) {
-    .info{
-        p{
-            font-size: 15px
-        }
-    }
-    #post-by{
-        font-size: 12px;
+}
+@media only screen and (max-width: 768px) {
+  .info {
+    p {
+      font-size: 15px;
     }
   }
-  @media only screen and (max-width: 576px) {
-    .info{
-        text-align: center;
-        display: block;
-        h1{
-            font-size: 20px;
-        }
-        p{
-            font-size: 15px
-        }
+  #post-by {
+    font-size: 12px;
+  }
+}
+@media only screen and (max-width: 576px) {
+  .info {
+    text-align: center;
+    display: block;
+    h1 {
+      font-size: 20px;
     }
-    #post-by{
-        font-size: 12px;
+    p {
+      font-size: 15px;
     }
   }
+  #post-by {
+    font-size: 12px;
+  }
+}

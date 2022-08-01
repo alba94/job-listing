@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CardModule } from 'primeng/card';
 import { SharedModule } from './shared/shared.module';
 import { HomeComponent } from './home/home.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -15,9 +14,6 @@ import { CreateJobPostingComponent } from './dashboard/create-edit-job-posting/c
 import { FavoriteJobComponent } from './home/favorite-job/favorite-job.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ConfirmationService, MessageService } from 'primeng/api';
-
-
-// import {TableModule} from 'primeng/table';
 
 @NgModule({
   declarations: [
@@ -35,7 +31,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,
-      multi: true
+      multi: true,
     },
     MessageService,
     ConfirmationService,

@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { exhaustMap, map, take, tap } from 'rxjs';
+import { map } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { SortPipe } from 'src/app/shared/pipes/sort.pipe';
 import { environment } from 'src/environments/environment';
@@ -12,11 +12,7 @@ import { JobPostingEntity } from '../models/job.model';
 export class JobService {
   private url: string;
 
-  constructor(
-    private httpClient: HttpClient,
-    private authService: AuthService,
-    private sortPipe: SortPipe
-  ) {
+  constructor(private httpClient: HttpClient, private sortPipe: SortPipe) {
     this.url = environment.baseUrl + '/jobs';
   }
 
@@ -34,10 +30,11 @@ export class JobService {
 
   updateJob(request: JobPostingEntity) {
     return this.httpClient
-      .patch<JobPostingEntity>(this.url + `/${request.id}` + '.json', request.wage)
-      .subscribe(res => {
-        console.log(res);
-      });
+      .patch<JobPostingEntity>(
+        this.url + `/${request.id}` + '.json',
+        request.wage
+      )
+      .subscribe();
   }
 
   getJobs() {
@@ -56,7 +53,6 @@ export class JobService {
           return this.sortPipe.transform(jobsArray);
         })
       );
-      
   }
 
   deleteJob(id: string) {

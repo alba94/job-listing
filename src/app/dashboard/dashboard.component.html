@@ -1,7 +1,6 @@
 <div class="nav">
     <div class="d-flex justify-content-between container" style="width: 100%;">
         <img src="assets/images/logo.png" width="300px" alt="" [routerLink]="['/home']" style="cursor: pointer;">
-
         <button pButton label="Log Out" icon="pi pi-sign-out" (click)="logOut()" class="p-button-danger"
             style=" width: 150px; margin-left: 20px;"></button>
     </div>
@@ -12,13 +11,9 @@
             <h2>Dashboard</h2>
             <div class="d-flex justify-content-between align-items-center" style="margin-bottom: 20px;">
                 <p>Welcome {{currentUser.email}}! You can create, edit, update and delete you job postings here!</p>
-                <div>
-
-                </div>
             </div>
         </div>
-        <ng-container
-        >
+        <ng-container>
             <p-table #dt [value]="jobs" dataKey="id" [rows]="10" [showCurrentPageReport]="true"
                 [rowsPerPageOptions]="[10,25,50]" styleClass="p-datatable-customers p-datatable-gridlines"
                 [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
@@ -30,13 +25,14 @@
                             <div class="p-d-flex">
                                 <span class="p-input-icon-left p-ml-auto">
                                     <i class="pi pi-search"></i>
-                                    <input  pInputText type="text" (input)="applyFilterGlobal($event, 'contains')"
+                                    <input pInputText type="text" (input)="applyFilterGlobal($event, 'contains')"
                                         placeholder="Search position" />
                                 </span>
                             </div>
                             <button pButton type="button" (click)="showDialog()" icon="pi pi-plus" label="Add Job"
                                 class="p-button-success" style="margin-left: 20px;"></button>
-                            <p-dialog header="{{openEdit ? 'Edit Job Post' : 'Add Job Post'}}" [(visible)]="display" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '50vw'}">
+                            <p-dialog header="{{openEdit ? 'Edit Job Post' : 'Add Job Post'}}" [(visible)]="display"
+                                [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '50vw'}">
                                 <app-create-edit-job-posting (addedJob)="handleJob($event)" [openEdit]="openEdit"
                                     (openModal)="showModal($event)" [object]="selectedJobPost">
                                 </app-create-edit-job-posting>
@@ -103,8 +99,6 @@
                 </ng-template>
             </p-table>
         </ng-container>
-        <ng-template #loading>Loading...</ng-template>
     </div>
 </div>
 <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
-
