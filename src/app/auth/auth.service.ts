@@ -25,7 +25,7 @@ export class AuthService {
       .pipe(tap((resData) => localStorage.setItem('token', resData.idToken)));
   }
 
-  login(email: string, password: string) {
+  login(email: string, password: string) { 
     return this.http
       .post<AuthResponseData>(loginUrl, {
         email: email,
