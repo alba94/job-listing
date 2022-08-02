@@ -4,7 +4,9 @@ import { Router } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { JobPostingEntity } from '../core/models/job.model';
+import { UserEntity } from '../core/models/user.model';
 import { JobService } from '../core/services/job.service';
+import { UserService } from '../core/services/user.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,13 +21,14 @@ export class DashboardComponent implements OnInit {
   openEdit: boolean = false;
   openModal: boolean = false;
   selectedJobPost!: JobPostingEntity;
+  loggedUser!: UserEntity;
 
   @ViewChild('dt') dt: Table | undefined;
 
   constructor(
     private jobService: JobService,
     private router: Router,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
   ) {
     this.newJobForm = new FormGroup({
       title: new FormControl(null, [Validators.required]),
@@ -36,12 +39,15 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchJobs();
+    console.log('currentuser ne dashboard', this.currentUser);
   }
 
   fetchJobs() {
     this.jobService.getJobs().subscribe((jobs) => {
       this.jobs = jobs.filter((job) => {
-        return job.offer.email == this.currentUser.email;
+        if (this.currentUser.email) {
+          job.offer.email == this.currentUser.email;
+        }
       });
     });
   }
@@ -66,11 +72,13 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  editJob(job: JobPostingEntity) { //TO FIX - change UI of edit
+  editJob(job: JobPostingEntity) {
+    //TO FIX - change UI of edit
     this.display = true;
     this.openEdit = true;
     this.selectedJobPost = job;
     this.jobService.editJob(job);
+    // this.openEdit = false;
   }
 
   handleJob(event: JobPostingEntity) {
@@ -81,6 +89,7 @@ export class DashboardComponent implements OnInit {
       this.editJob(event);
     }
   }
+
 
   showModal(value: boolean) {
     this.openModal = value;

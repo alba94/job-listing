@@ -11,10 +11,9 @@ import { AuthService } from '../auth.service';
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss'],
 })
-export class SignupComponent implements OnInit {
+export class SignupComponent {
   isLoading = false;
   signupForm: FormGroup;
-  selectedPosition: string = '';
 
   constructor(
     private authService: AuthService,
@@ -34,8 +33,6 @@ export class SignupComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
-
   signUp() {
     let userName =
       this.signupForm.value.firstname + ' ' + this.signupForm.value.lastname;
@@ -46,8 +43,8 @@ export class SignupComponent implements OnInit {
         password: this.signupForm.value.password,
         role: this.signupForm.value.role,
       })
-      .subscribe(
-        (res) => {
+      .subscribe({
+        next: (res) => {
           this.userService.addUser({
             id: res.idToken,
             email: res.email,
@@ -56,6 +53,7 @@ export class SignupComponent implements OnInit {
             appliedJobs: [],
           });
           localStorage.setItem('user', JSON.stringify(res));
+          console.log('user in localStorage', res);
           this.isLoading = false;
           if (res.displayName == 'offer') {
             this.router.navigate(['/dashboard']);
@@ -63,11 +61,11 @@ export class SignupComponent implements OnInit {
             this.router.navigate(['/home']);
           }
         },
-        (error) => {
+        error: () => {
           this.isLoading = false;
           this.showError('Email has already been taken');
         }
-      );
+      });
     this.signupForm.reset();
   }
 

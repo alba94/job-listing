@@ -18,7 +18,7 @@ export class CreateJobPostingComponent implements OnInit {
 
   @Output() addedJob = new EventEmitter<JobPostingEntity>();
   @Output() openModal = new EventEmitter<boolean>();
-  @Input() openEdit: boolean = false;  //TO FIX - reset form after edit
+  @Input() openEdit: boolean = false;  
   @Input()
   set object(item: any) {
     if (this.openEdit) {
@@ -47,7 +47,7 @@ export class CreateJobPostingComponent implements OnInit {
   }
 
   createJob() {
-    console.log(this.newJobForm.value);
+    console.log('form ne child', this.newJobForm.value);
     this.addedJob.emit(this.newJobForm.value);
     this.newJobForm.reset();
     this.openModal.emit(false);

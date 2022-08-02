@@ -31,21 +31,22 @@ export class LoginComponent {
   logIn() {
     this.authService
       .login(this.loginForm.value.email, this.loginForm.value.password)
-      .subscribe(
-        (res) => {
+      .subscribe({
+        next: (res) => {
           this.isLoading = false;
-          localStorage.setItem('user', JSON.stringify(res));
+          console.log('user in localStorage', res);
           if (res.displayName == 'offer') {
             this.router.navigate(['/dashboard']);
           } else if (res.displayName == 'seeker') {
             this.router.navigate(['/home']);
           }
+          localStorage.setItem('user', JSON.stringify(res));
         },
-        (error) => {
+        error: () => {
           this.isLoading = false;
           this.showError('Icorrect credentials');
-        }
-      );
+        },
+      });
     this.loginForm.reset();
   }
 

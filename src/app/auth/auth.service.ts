@@ -42,4 +42,11 @@ export class AuthService {
   isAdmin(): boolean {
     return JSON.parse(localStorage.getItem('user')!).displayName == 'offer';
   }
+
+  currenUserFromLS() {
+    let currentUser;
+    if(JSON.parse(localStorage.getItem('user')!) != null){
+      currentUser =  JSON.parse(localStorage.getItem('user')!);
+    }
+  }
 }

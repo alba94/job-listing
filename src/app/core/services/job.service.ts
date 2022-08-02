@@ -19,7 +19,14 @@ export class JobService {
   addJob(request: JobPostingEntity) {
     return this.httpClient
       .post<JobPostingEntity>(this.url + '.json', request)
-      .subscribe();
+      .subscribe(
+        res => console.log('res ne service add Job ',res)
+        
+        // {
+        //   next: (res) => console.log('res ne service add Job ',res)
+          
+        // }
+      );
   }
 
   editJob(request: JobPostingEntity) {
